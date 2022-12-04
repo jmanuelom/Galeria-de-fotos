@@ -79,7 +79,7 @@
 	<!-- Gallery Section end -->
 	<section class="gallery-section">
 		<div class="gallery-header">
-			<h4>Gallery</h4>
+			<h4>Gallery of</h4>
 			<ul class="gallery-filter">
 				<li class="filter all active" data-filter="*">All</li>
 				<li class="filter" data-filter=".featured">Featured</li>
