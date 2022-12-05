@@ -63,7 +63,14 @@ button{
 	border-radius: 5px;
 	transition: .2s ease-in;
 	cursor: pointer;
+	text-decoration: none;
 }
+
+.btn a{
+	text-decoration: none;
+	color:#fff;
+}
+
 button:hover{
 	background: #6d44b8;
 }

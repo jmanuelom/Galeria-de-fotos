@@ -1,4 +1,4 @@
-<?php include ('includes/connection.php');?>
+<?php include ('../includes/connection.php');?>
 <?php include ("login-user.php");?>
 <?php
     $stmt = $link -> prepare("INSERT INTO users (id, name, password) VALUES (null, :name, :password)");
@@ -22,8 +22,8 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Sign up / Login Form</title>
-  <link rel="stylesheet" href="css/style-sign-in.css">
+  <title>Sign up / Login Form</title>
+  <link rel="stylesheet" href="../css/style-sign-in.css">
 
 </head>
 <body>
@@ -36,7 +36,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="index.html">Back</a>
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 
@@ -46,6 +45,7 @@
 					<input type="text" name="signinname" placeholder="User name" required="">
 					<input type="password" name="signinpassword" placeholder="Password" required="">
 					<button name="signup">Sign up</button>
+                    <button type="button" class="btn"><a href="../html/index.html">Back</a></button>
 				</form>
 			</div>
 
@@ -55,13 +55,15 @@
 					<input type="text" name="loginname" placeholder="User name" required="">
 					<input type="password" name="loginpassword" placeholder="Password" required="">
 					<button name="login">Login</button>
-				</form>
-			</div>
-	</div>
+                    <button type="button" class="btn"><a href="../html/index.html">Back</a></button>
+                </form>
+            </div>
+        </div>
+    
 </body>
 </html>
 <!-- partial -->
   
 </body>
 </html>
-<?php include ('includes/disconnection.php');?>
+<?php include ('../includes/disconnection.php');?>

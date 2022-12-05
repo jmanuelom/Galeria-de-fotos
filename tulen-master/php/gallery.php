@@ -1,3 +1,15 @@
+<?php include('../includes/connection.php');?>
+<?php
+	if(isset($_POST['deletefile'])) {
+		$idFile = $_POST['idimg'];
+		$sql = "DELETE FROM images WHERE id=:id";
+		$statement = $link -> prepare($sql);
+		$statement -> bindParam(':id', $idFile, PDO::PARAM_INT);
+		if($statement -> execute()) {
+			echo "Se borró con éxito";
+		}
+	}
+?>	
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -7,15 +19,15 @@
 	<meta name="keywords" content="photo, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="css/themify-icons.css"/>
-	<link rel="stylesheet" href="css/accordion.css"/>
-	<link rel="stylesheet" href="css/fresco.css"/>
-	<link rel="stylesheet" href="css/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../css/themify-icons.css"/>
+	<link rel="stylesheet" href="../css/accordion.css"/>
+	<link rel="stylesheet" href="../css/fresco.css"/>
+	<link rel="stylesheet" href="../css/owl.carousel.min.css"/>
 
 	<!-- Main Stylesheets -->
-	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
 
 
 	<!--[if lt IE 9]>
@@ -79,29 +91,70 @@
 	<!-- Gallery Section end -->
 	<section class="gallery-section">
 		<div class="gallery-header">
-			<h4>Gallery of</h4>
-			<ul class="gallery-filter">
-				<li class="filter all active" data-filter="*">All</li>
-				<li class="filter" data-filter=".featured">Featured</li>
+			<?php
+				$idUser = $_GET['id'];
+				$sql2 = $link -> query("SELECT * FROM users WHERE id=$idUser");
+				$result = $sql2 -> fetch();
+				$nameUser = $result['name'];
+			?>
+			<h4>Gallery of <?=$nameUser?></h4>
+			<!--<ul class="gallery-filter">
+				<li class="filter all active"><a href="index.php">Insert</a></li>
+				<li class="filter" data-filter=".featured"><a href="index.php">Featured</a></li>
 				<li class="filter" data-filter=".people">People</li>
 				<li class="filter" data-filter=".nature">Nature</li>
 				<li class="filter" data-filter=".animal">Animal</li>
 				<li class="filter" data-filter=".travel">Travel</li>
-			</ul>
+			</ul>!-->
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  				<div class="container-fluid">
+					
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="insert.php?idUser=<?=$idUser?>">Insertar</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="#">Características</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="#">Precios</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link disabled">Deshabilitado</a>
+						</li>
+					</ul>
+					</div>
+				</div>
+			</nav>
 		</div>
 		<div class="nice-scroll">
 			<div class="gallery-warp">
 				<div class="grid-sizer"></div>
-				<div class="gallery-item gi-big featured">
-					<a class="fresco" href="img/gallery/1.jpg" data-fresco-group="projects">
-						<img src="img/gallery/1.jpg" alt="">
-					</a>
-					<div class="gi-hover">
-						<img src="img/gallery/author.jpg" alt="">
-						<h6>Arthur Rose</h6>
-					</div>
-				</div>
-				<div class="gallery-item people">
+				<?php
+					$idUser = $_GET['id'];
+					$sql = $link -> query("SELECT * FROM images WHERE idUser=$idUser");
+					while($row = $sql -> fetch()) {?>
+						<div class="gallery-item gi-big featured">
+								<a href="modify.php?id=<?=$idUser?>&idimg=<?=$row['id']?>">
+									<img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['file']); ?>" />
+								</a>
+							<div class="gi-hover">
+								<h6><?=$row['nameimg']?></h6>
+								<form action="#" method="post">
+									<input type="hidden" name="idimg" value="<?=$row['id']?>">
+									<input type="hidden" name="iduser" value="<?=$row['idUser']?>">
+									<button type="submit" name="deletefile">Delete</button>
+								</form>
+							</div>
+						</div>
+				<?php }?>
+				
+				
+				<!--<div class="gallery-item people">
 					<a class="fresco" href="img/gallery/2.jpg" data-fresco-group="projects">
 						<img src="img/gallery/2.jpg" alt="">
 					</a>
@@ -190,23 +243,24 @@
 						<img src="img/gallery/author.jpg" alt="">
 						<h6>Arthur Rose</h6>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</section>
 	<!-- Gallery Section end -->
 
 	<!--====== Javascripts & Jquery ======-->
-	<script src="js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/imagesloaded.pkgd.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/jquery.nicescroll.min.js"></script>
-	<script src="js/circle-progress.min.js"></script>
-	<script src="js/pana-accordion.js"></script>
-	<script src="js/fresco.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="../js/vendor/jquery-3.2.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/imagesloaded.pkgd.min.js"></script>
+	<script src="../js/isotope.pkgd.min.js"></script>
+	<script src="../js/jquery.nicescroll.min.js"></script>
+	<script src="../js/circle-progress.min.js"></script>
+	<script src="../js/pana-accordion.js"></script>
+	<script src="../js/fresco.min.js"></script>
+	<script src="../js/main.js"></script>
 
 	</body>
 </html>
+<?php include('../includes/disconnection.php');?>

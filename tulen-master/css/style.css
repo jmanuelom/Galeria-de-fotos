@@ -987,7 +987,6 @@ only screen and (min-width: 576px) and (max-width: 767px),
 	margin-left: 35px;
 	cursor: pointer;
 }
-
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.gallery-filter li {
 		margin-left: 20px;
@@ -1002,7 +1001,6 @@ only screen and (min-width: 576px) and (max-width: 767px),
 		font-size: 16px;
 	}
 }
-
 .gallery-filter li.active {
 	color: #2916e0;
 }
@@ -1823,4 +1821,9 @@ only screen and (min-width: 992px) and (max-width: 1200px),
 .contact-info p span {
 	color: #b2b2b2;
 	font-weight: 400;
+}
+
+.container-fluid{
+	text-align:right; 
+	
 }
