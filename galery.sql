@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 04-12-2022 a las 14:04:47
+-- Tiempo de generación: 06-12-2022 a las 18:59:20
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.0.19
 
@@ -30,8 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `images` (
   `id` int NOT NULL,
   `idUser` int NOT NULL,
-  `nameimg` varchar(20) COLLATE utf8mb4_es_0900_ai_ci NOT NULL,
-  `file` longblob NOT NULL
+  `nameimg` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_es_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_es_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -42,8 +41,8 @@ CREATE TABLE `images` (
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `name` varchar(20) COLLATE utf8mb4_es_0900_ai_ci NOT NULL,
-  `password` varchar(20) COLLATE utf8mb4_es_0900_ai_ci NOT NULL
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_es_0900_ai_ci NOT NULL,
+  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_es_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_es_0900_ai_ci;
 
 --
@@ -72,13 +71,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas
