@@ -1,12 +1,17 @@
 <?php 
-    $stmt = $link -> prepare("UPDATE images SET nameimg=:nameimg WHERE id=:id");
+    $stmt = $link -> prepare("UPDATE images SET nameimg=:nameimg WHERE nameimg=:nameimg2");
     if(isset($_POST['updatefile'])) {
         try {
             $idUser = $_GET['id'];
-            $idimg = $_GET['idimg'];
-            $nameimg = $_POST['imgname'];
-            $stmt -> bindParam(":nameimg", $nameimg);
-            $stmt -> bindParam(":id", $idimg);
+            $nameimg = $_GET['nameimg'];
+            if(is_uploaded_file($_FILES["newimg"]["tmp_name"])) {
+                $idUser = $_GET['id'];
+                $name = $idUser . "-" . $_FILES["newimg"]["name"];
+                move_uploaded_file($_FILES["newimg"]["tmp_name"], "uploadedimages/$name");
+            }
+            //$nameimg = $_POST['imgname'];
+            $stmt -> bindParam(":nameimg", $name);
+            $stmt -> bindParam(":nameimg2", $nameimg);
             if($stmt -> execute()) {
                 header("location:gallery.php?id=$idUser");
             } else {

@@ -6,17 +6,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Upload image</title>
     <link rel="stylesheet" href="../css/insertimg.css">
 </head>
 <body>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 <div class="frame">
-	<div class="center">
+	<div class="center1">
 		
 		<div class="title">
-			<label for="imgname">Nombre de la foto: </label>
-			<input type="text" name="imgname" id="imgname" required>
+			<!--<label for="imgname">Nombre: </label>
+			<input type="text" name="imgname" id="imgname" required>-->
+			<!--<select name="ext" id="ext" required>
+				<option value=".png">.png</option>
+				<option value=".jpg">.jpg</option>
+				<option value=".jpeg">.jpeg</option>
+			</select>-->
 		
 		</div>
 
@@ -25,10 +30,11 @@
 			
 			
 		</div>
-		<input type="file" accept="image/png, .jpeg, .jpg" name="imgfile" required/>
+		<input type="file" accept="image/png, image/.jpeg, image/.jpg" name="imgfile" required/>
 		<button type="submit" class="btn" name="uploadbutton">Upload file</button>
-		
+		<button type="button" class="btn" name="back"><a href="gallery.php?id=<?=$_GET['idUser']?>">Back</a></button>
 	</div>
+	
 </div>
 </form>
 <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->

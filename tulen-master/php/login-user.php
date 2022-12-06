@@ -15,7 +15,7 @@ $stmt2 = $link -> prepare("SELECT * FROM users WHERE name=:name AND password=:pa
                 $id = $row['id'];
                 header("location:gallery.php?id=$id");
             } else {
-                echo '<div class="alert alert-danger">No existe el usuario</div>';
+                echo "<div class='alert alert-error' style='text-align:center; color:red'>Usuario o contraseña incorrectos</div>";
             }
 
         } catch (PDOException $ex){

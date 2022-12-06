@@ -6,14 +6,14 @@
 		$statement = $link -> prepare($sql);
 		$statement -> bindParam(':id', $idFile, PDO::PARAM_INT);
 		if($statement -> execute()) {
-			echo "Se borró con éxito";
+			echo "<div class='alert alert-success'>Se borró con éxito</div>";
 		}
 	}
 ?>	
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>Tulen | Photography HTML Template</title>
+	<title>My Gallery</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tulen Photography HTML Template"">
 	<meta name="keywords" content="photo, html">
@@ -67,11 +67,14 @@
 		</div>
 		<nav class="main-menu">
 			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><a href="about.html">About</a></li>
-				<li><a href="gallery.html" class="active">Gallery</a></li>
-				<li><a href="blog.html">Blog</a></li>
-				<li><a href="contact.html">Contact</a></li>
+				
+			<?php 
+				$id = $_GET['id'];
+			?>	
+				<li><a href="gallery.php?id=<?=$id?>" class="active">Gallery</a></li>
+				<li><a href="../../index.html">Log-out</a></li>
+				
+				
 			</ul>
 		</nav>
 		<div class="sm-footer">
@@ -98,6 +101,7 @@
 				$nameUser = $result['name'];
 			?>
 			<h4>Gallery of <?=$nameUser?></h4>
+			<button type="button" name="insert" style="float:right"><a href="insert.php?idUser=<?=$idUser?>">Insert</a></button>
 			<!--<ul class="gallery-filter">
 				<li class="filter all active"><a href="index.php">Insert</a></li>
 				<li class="filter" data-filter=".featured"><a href="index.php">Featured</a></li>
@@ -106,7 +110,7 @@
 				<li class="filter" data-filter=".animal">Animal</li>
 				<li class="filter" data-filter=".travel">Travel</li>
 			</ul>!-->
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
   				<div class="container-fluid">
 					
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,19 +121,10 @@
 						<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="insert.php?idUser=<?=$idUser?>">Insertar</a>
 						</li>
-						<li class="nav-item">
-						<a class="nav-link" href="#">Características</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link" href="#">Precios</a>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link disabled">Deshabilitado</a>
-						</li>
 					</ul>
 					</div>
 				</div>
-			</nav>
+			</nav>-->
 		</div>
 		<div class="nice-scroll">
 			<div class="gallery-warp">
@@ -139,8 +134,8 @@
 					$sql = $link -> query("SELECT * FROM images WHERE idUser=$idUser");
 					while($row = $sql -> fetch()) {?>
 						<div class="gallery-item gi-big featured">
-								<a href="modify.php?id=<?=$idUser?>&idimg=<?=$row['id']?>">
-									<img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['file']); ?>" />
+								<a href="modify.php?id=<?=$idUser?>&nameimg=<?=$row['nameimg']?>">
+									<img src="uploadedimages/<?=$row['nameimg']?>" />
 								</a>
 							<div class="gi-hover">
 								<h6><?=$row['nameimg']?></h6>
@@ -148,6 +143,7 @@
 									<input type="hidden" name="idimg" value="<?=$row['id']?>">
 									<input type="hidden" name="iduser" value="<?=$row['idUser']?>">
 									<button type="submit" name="deletefile">Delete</button>
+									<button type="submit" name="modifyfile"><a href="modify.php?id=<?=$idUser?>&nameimg=<?=$row['nameimg']?>">Modify</a></button>
 								</form>
 							</div>
 						</div>
